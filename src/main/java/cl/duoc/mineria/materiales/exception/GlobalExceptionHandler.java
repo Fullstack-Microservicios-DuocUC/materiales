@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     public GlobalExceptionHandler() {
-        System.out.println("✅ GlobalExceptionHandler (Módulo Materiales - 8086) CONFIGURADO");
+        System.out.println("GlobalExceptionHandler (Módulo Materiales - 8086) CONFIGURADO");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGeneralException(Exception ex) {
-        System.out.println("🔴 CRÍTICO - Error en Materiales: " + ex.getMessage());
+        System.out.println("CRÍTICO - Error en Materiales: " + ex.getMessage());
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno en el servidor de Materiales");
         problem.setTitle("Internal Server Error");
         problem.setProperty("timestamp", Instant.now());
