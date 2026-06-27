@@ -46,4 +46,12 @@ public class GlobalExceptionHandler {
         problem.setProperty("timestamp", Instant.now());
         return problem;
     }
+
+    @ExceptionHandler(MaterialDuplicadoException.class)
+    public ProblemDetail handleMaterialDuplicado(MaterialDuplicadoException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        problem.setTitle("Material Duplicado");
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
 }

@@ -1,6 +1,7 @@
 package cl.duoc.mineria.materiales.service;
 
 import cl.duoc.mineria.materiales.dto.RegistrarMaterialDTO;
+import cl.duoc.mineria.materiales.exception.MaterialDuplicadoException;
 import cl.duoc.mineria.materiales.exception.MaterialNotFoundException;
 import cl.duoc.mineria.materiales.model.Material;
 import cl.duoc.mineria.materiales.repository.MaterialRepository;
@@ -19,15 +20,13 @@ public class MaterialService {
     @Transactional
     public Material registrarMaterial(RegistrarMaterialDTO dto) {
         if (materialRepository.findByNombreIgnoreCase(dto.getNombre()).isPresent()) {
-            throw new MaterialNotFoundException("El material '" + dto.getNombre() + "' ya existe en los registros geológicos.");
+            throw new MaterialDuplicadoException("El material '" + dto.getNombre() + "' ya existe en los registros geológicos.");
         }
-
         Material nuevoMaterial = Material.builder()
                 .nombre(dto.getNombre())
                 .densidadPromedio(dto.getDensidadPromedio())
                 .clasificacion(dto.getClasificacion())
                 .build();
-
         return materialRepository.save(nuevoMaterial);
     }
 
